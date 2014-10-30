@@ -24,15 +24,20 @@ import Data.Maybe (maybe)
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Config.Desktop
 import XMonad.Config.Gnome
+import qualified XMonad.StackSet as W
+
+myManageHook = composeAll
+               [ isFullscreen --> (doF W.focusDown <+> doFullFloat)]
 
 main = do
     xmproc <- spawnPipe "/usr/bin/xmobar /home/jesse/.xmobarrc"
     xmonad $ defaultConfig
-        { manageHook = manageDocks <+> manageHook defaultConfig
+        { manageHook = manageDocks <+> myManageHook <+> manageHook defaultConfig
         , layoutHook = avoidStruts  $  layoutHook defaultConfig
         , logHook    = dynamicLogWithPP xmobarPP
                            { ppOutput = hPutStrLn xmproc
