@@ -48,7 +48,7 @@ main = do
         } `additionalKeys`
         [ ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock")
         , ((0, xF86XK_AudioRaiseVolume)  , spawn "pactl set-sink-volume 1 +5%")
-        , ((0, xF86XK_AudioLowerVolume)  , spawn "pactl set-sink-volume 1 -- -5%")
+        , ((0, xF86XK_AudioLowerVolume)  , spawn "pactl set-sink-volume 1 -5%")
         , ((0, xF86XK_AudioMute)         , spawn "pactl set-sink-mute 1 toggle")
         ]
 
